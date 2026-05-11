@@ -1,0 +1,634 @@
+<!doctype html>
+<!--
+  ============================================================
+  Re-Watt — Landing page (one-pager)
+  ============================================================
+  Structure en 4 sections verticales :
+    1. Hero — question d'accroche (PAS de logo)
+    2. Mission — phrase unique (PAS de logo)
+    3. "Vous êtes…" — 4 cartes mailto cliquables
+    4. Signature visuelle — logo + picto trophée + baseline + réseaux
+    + Footer minimal
+
+  À PERSONNALISER avant mise en ligne :
+    • Variante de la question hero      → voir Section 1 (3 variantes commentées)
+    • Email destinataire des mailto      → const  CONTACT_EMAIL  dans <script>
+    • URL LinkedIn                       → chercher  LINKEDIN_URL_PLACEHOLDER
+    • Image Open Graph (1200×630)        → meta property="og:image"
+    • Favicon                            → fichiers favicon-* à la racine
+  ============================================================
+-->
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ============================================================
+       SEO de base
+       ============================================================ -->
+  <title>Re-Watt — Prolonger la vie des batteries électriques amovibles</title>
+  <meta name="description" content="Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous. 80 % des batteries envoyées au recyclage sont en réalité réparables.">
+  <meta name="theme-color" content="#2D7A4F">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph (partage Facebook / LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Re-Watt — Prolonger la vie des batteries électriques amovibles">
+  <meta property="og:description" content="Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous.">
+  <meta property="og:image" content="assets/og-image.png"><!-- TODO : remplacer par une vraie image 1200×630 -->
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon — placeholders (fichiers déjà présents à la racine du projet) -->
+  <link rel="icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- ============================================================
+       Police : Inter (400 régulier, 500 medium, 700 bold)
+       Seule dépendance externe autorisée.
+       ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       Tokens de design — modifier ici pour propager partout
+       ============================================================ */
+    :root {
+      /* Palette */
+      --green-primary: #2D7A4F;   /* vert principal — liens, hover, accents */
+      --green-dark:    #1F5638;   /* vert foncé — hover des liens sociaux */
+      --green-light:   #A8D5BA;   /* vert clair — bordure de focus, lignes décoratives */
+      --bg:            #FAFAF7;   /* fond global */
+      --text:          #1A1A1A;   /* texte principal */
+      --text-muted:    #5C5C5C;   /* texte secondaire / discret */
+      --border:        #E5E5E5;   /* bordures neutres */
+
+      /* Espacements verticaux des sections */
+      --section-py-desktop: 80px;
+      --section-py-mobile:  48px;
+
+      /* Conteneur */
+      --container-max: 960px;
+      --container-px:  24px;
+
+      /* Cartes */
+      --card-radius: 12px;
+      --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      --card-shadow-hover: 0 8px 24px rgba(45, 122, 79, 0.12);
+      --transition: 200ms ease;
+    }
+
+    /* ============================================================
+       Reset léger + bases
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* Focus visible — accessibilité clavier */
+    :focus-visible {
+      outline: 3px solid var(--green-primary);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* Lien "skip to content" (accessibilité) */
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--green-primary);
+      color: #fff;
+      padding: 8px 16px;
+      z-index: 100;
+      text-decoration: none;
+    }
+    .skip-link:focus { left: 8px; top: 8px; }
+
+    /* Conteneur générique */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-px);
+    }
+
+    /* ============================================================
+       Section générique
+       ============================================================ */
+    .section {
+      padding: var(--section-py-mobile) 0;
+    }
+    @media (min-width: 768px) {
+      .section { padding: var(--section-py-desktop) 0; }
+    }
+
+    /* ============================================================
+       SECTION 1 — Hero / question d'accroche
+       Plein écran (>= 80vh), texte gigantesque, sans logo.
+       ============================================================ */
+    .hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero__question {
+      margin: 0;
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      /* Empêche d'avoir une ligne orpheline trop large sur grand écran */
+      max-width: 16ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero__construction {
+      margin-top: 32px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Version repli (hero sobre, sans question) — activable si besoin */
+    .hero--fallback .hero__question {
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      max-width: 28ch;
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       SECTION 2 — Mission
+       ============================================================ */
+    .mission {
+      text-align: center;
+    }
+    .mission__sentence {
+      margin: 0 auto;
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-weight: 500;
+      line-height: 1.4;
+      max-width: 38ch;
+      color: var(--text);
+    }
+    .mission__divider {
+      border: 0;
+      width: 64px;
+      height: 2px;
+      background: var(--green-primary);
+      margin: 40px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ============================================================
+       SECTION 3 — "Vous êtes…" + 4 cartes mailto
+       ============================================================ */
+    .profiles__title {
+      margin: 0 0 40px;
+      text-align: center;
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text);
+    }
+    .profiles__grid {
+      display: grid;
+      /* minmax(0, 1fr) au lieu de 1fr → permet aux colonnes de
+         se contracter même si un mot long (ex. "réparation/reconditionnement")
+         dépasserait la largeur intrinsèque. */
+      grid-template-columns: minmax(0, 1fr); /* mobile : 1 col */
+      gap: 16px;
+    }
+    @media (min-width: 640px) {
+      .profiles__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } /* tablette : 2 col */
+    }
+    @media (min-width: 1024px) {
+      .profiles__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } /* desktop : 4 col */
+    }
+
+    /* Carte profil */
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 24px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow);
+      text-decoration: none;
+      color: inherit;
+      transition: transform var(--transition),
+                  box-shadow var(--transition),
+                  border-color var(--transition);
+    }
+    .profile-card:hover,
+    .profile-card:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow-hover);
+      border-color: var(--green-primary);
+    }
+    .profile-card__label {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--green-primary);
+      line-height: 1.3;
+    }
+    .profile-card__desc {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      /* Force la coupure des mots très longs (URL, slashs) pour
+         ne pas faire déborder la carte. */
+      overflow-wrap: break-word;
+    }
+    .profile-card__cta {
+      margin-top: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--green-primary);
+      letter-spacing: 0.01em;
+    }
+    .profile-card__cta::after {
+      content: " →";
+      transition: transform var(--transition);
+      display: inline-block;
+    }
+    .profile-card:hover .profile-card__cta::after { transform: translateX(4px); }
+
+    /* ============================================================
+       SECTION 4 — Signature visuelle (logo + trophée + baseline + réseaux)
+       Seule section où le logo apparaît.
+       ============================================================ */
+    .signature {
+      text-align: center;
+    }
+    .signature__logo {
+      max-width: 280px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .signature__trophy {
+      width: 80px;
+      height: auto;
+      margin: 24px auto 0;
+    }
+    .signature__baseline {
+      margin: 32px 0 0;
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: var(--text);
+    }
+
+    /* Réseaux sociaux */
+    .signature__socials {
+      margin-top: 32px;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+    }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;          /* zone de tap >= 44px (accessibilité tactile) */
+      color: var(--green-primary);
+      border-radius: 8px;
+      transition: color var(--transition), background var(--transition);
+    }
+    .social-link:hover,
+    .social-link:focus-visible {
+      color: var(--green-dark);
+      background: rgba(45, 122, 79, 0.08);
+    }
+    .social-link svg { width: 24px; height: 24px; }
+
+    /* ============================================================
+       Footer minimal
+       ============================================================ */
+    .site-footer {
+      padding: 32px 0 48px;
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+    .site-footer a {
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .site-footer a:hover { color: var(--green-primary); }
+    .site-footer__sep { margin: 0 8px; }
+
+    /* ============================================================
+       Préférences utilisateur
+       ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Accessibilité : permet aux utilisateurs clavier de sauter directement au contenu -->
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <main id="main">
+
+    <!-- ============================================================
+         SECTION 1 — Hero / question d'accroche
+         PAS de logo ici (volontaire).
+         3 variantes ci-dessous : décommenter celle qui sera utilisée,
+         commenter les autres. Variante par défaut active.
+         ============================================================ -->
+    <section class="section hero" aria-labelledby="hero-title">
+      <div class="container">
+
+        <h1 class="hero__question" id="hero-title">
+          <!-- Variante par défaut (active) -->
+          Et si 80&nbsp;% des batteries jetées étaient réparables&nbsp;?
+
+          <!-- Variante A — décommenter pour activer (et commenter la variante par défaut)
+          80&nbsp;% des batteries au recyclage sont réparables. Et si on s'y mettait&nbsp;?
+          -->
+
+          <!-- Variante B — décommenter pour activer (et commenter la variante par défaut)
+          Pourquoi jeter une batterie sur 5 qui est réparable… alors qu'elles le sont toutes à 80&nbsp;%&nbsp;?
+          -->
+        </h1>
+
+        <p class="hero__construction" aria-label="Statut du site">Site en construction</p>
+
+      </div>
+    </section>
+
+    <!--
+      ===== HERO DE REPLI (désactivé) =====
+      Si la question hero ne fonctionne pas visuellement (trop longue,
+      mal cadrée), commenter le bloc ci-dessus et décommenter celui-ci.
+
+    <section class="section hero hero--fallback" aria-labelledby="hero-title">
+      <div class="container">
+        <h1 class="hero__question" id="hero-title">
+          Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous.
+        </h1>
+        <p class="hero__construction" aria-label="Statut du site">Site en construction</p>
+      </div>
+    </section>
+    -->
+
+    <!-- ============================================================
+         SECTION 2 — Mission
+         PAS de logo ici non plus.
+         ============================================================ -->
+    <section class="section mission" aria-label="Notre mission">
+      <div class="container">
+        <p class="mission__sentence">
+          Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous.
+        </p>
+        <hr class="mission__divider" aria-hidden="true">
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 3 — "Vous êtes…" / 4 cartes mailto
+         Chaque carte est un <a href="mailto:..."> avec objet et corps
+         pré-remplis. La construction de l'URL est faite en JS pour
+         centraliser l'email destinataire.
+         ============================================================ -->
+    <section class="section profiles" aria-labelledby="profiles-title">
+      <div class="container">
+
+        <h2 class="profiles__title" id="profiles-title">Vous êtes…</h2>
+
+        <div class="profiles__grid">
+
+          <!-- Carte 1 — Particulier -->
+          <a class="profile-card"
+             href="mailto:contact@re-watt.fr"
+             data-profile="particulier">
+            <span class="profile-card__label">Particulier</span>
+            <p class="profile-card__desc">
+              Vous voulez faire diagnostiquer ou réparer la batterie de votre vélo, scooter, trottinette ou outil portatif.
+            </p>
+            <span class="profile-card__cta" aria-hidden="true">Nous écrire</span>
+          </a>
+
+          <!-- Carte 2 — Professionnel -->
+          <a class="profile-card"
+             href="mailto:contact@re-watt.fr"
+             data-profile="professionnel">
+            <span class="profile-card__label">Professionnel</span>
+            <p class="profile-card__desc">
+              Vous gérez une flotte, un atelier ou une activité qui dépend de batteries amovibles.
+            </p>
+            <span class="profile-card__cta" aria-hidden="true">Nous écrire</span>
+          </a>
+
+          <!-- Carte 3 — Partenaire -->
+          <a class="profile-card"
+             href="mailto:contact@re-watt.fr"
+             data-profile="partenaire">
+            <span class="profile-card__label">Partenaire</span>
+            <p class="profile-card__desc">
+              Vous souhaitez rejoindre notre réseau d'ateliers de réparation/reconditionnement.
+            </p>
+            <span class="profile-card__cta" aria-hidden="true">Nous écrire</span>
+          </a>
+
+          <!-- Carte 4 — Écosystème -->
+          <a class="profile-card"
+             href="mailto:contact@re-watt.fr"
+             data-profile="ecosysteme">
+            <span class="profile-card__label">Écosystème</span>
+            <p class="profile-card__desc">
+              Vous êtes investisseur, institutionnel, journaliste ou acteur de la transition écologique.
+            </p>
+            <span class="profile-card__cta" aria-hidden="true">Nous écrire</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 4 — Signature visuelle
+         Seule section avec le logo.
+         ============================================================ -->
+    <section class="section signature" aria-label="Re-Watt">
+      <div class="container">
+
+        <!-- Logo (sans baseline incluse dans l'image) -->
+        <img class="signature__logo"
+             src="assets/logo-rewatt.png"
+             alt="Re-Watt"
+             width="280" height="auto">
+
+        <!-- Picto trophée "société à mission" -->
+        <img class="signature__trophy"
+             src="assets/picto-trophee.png"
+             alt="Société à mission"
+             title="Re-Watt — Société à mission"
+             width="80" height="auto">
+
+        <!-- Baseline en grand -->
+        <p class="signature__baseline">Diagnostiquer, réparer, prolonger.</p>
+
+        <!-- Réseaux sociaux (SVG inline, pas de CDN icône) -->
+        <nav class="signature__socials" aria-label="Réseaux sociaux Re-Watt">
+
+          <!-- LinkedIn — remplacer LINKEDIN_URL_PLACEHOLDER par l'URL réelle -->
+          <a class="social-link"
+             href="LINKEDIN_URL_PLACEHOLDER"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="LinkedIn Re-Watt">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+              <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43c-1.14 0-2.07-.93-2.07-2.07s.93-2.07 2.07-2.07 2.07.93 2.07 2.07c0 1.14-.93 2.07-2.07 2.07zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.2 0 22.22 0z"/>
+            </svg>
+          </a>
+
+          <!-- YouTube — URL réelle -->
+          <a class="social-link"
+             href="https://www.youtube.com/channel/UCc0IIA03CBrAF3MuBHuDdsQ"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Chaîne YouTube Re-Watt">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+              <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/>
+            </svg>
+          </a>
+
+        </nav>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       Footer minimal
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <span>Re-Watt — Société à mission</span>
+      <span class="site-footer__sep" aria-hidden="true">·</span>
+      <span>© 2026</span>
+      <span class="site-footer__sep" aria-hidden="true">·</span>
+      <a href="mailto:contact@re-watt.fr">contact@re-watt.fr</a>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JS — Seul rôle : construire les URLs mailto des 4 cartes
+       à partir d'un email centralisé + templates objet/corps.
+       Aucun tracking, aucune dépendance.
+       ============================================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ========================================================
+      // 1. Email destinataire — UNIQUE point de modification
+      // ========================================================
+      const CONTACT_EMAIL = 'contact@re-watt.fr';
+
+      // ========================================================
+      // 2. Templates objet / corps par profil
+      //    Modifier librement : le JS encode automatiquement
+      //    (espaces, retours à la ligne, accents, em-dashes).
+      // ========================================================
+      const PROFILE_TEMPLATES = {
+        particulier: {
+          subject: 'Re-Watt — Demande Particulier',
+          body:
+            'Bonjour,\n\n' +
+            'Je souhaite en savoir plus sur vos services pour particuliers.\n' +
+            'Ma demande concerne : ...\n\n' +
+            'Merci !'
+        },
+        professionnel: {
+          subject: 'Re-Watt — Demande Professionnel',
+          body:
+            'Bonjour,\n\n' +
+            'Je gère une activité qui dépend de batteries amovibles et souhaite en savoir plus sur vos services pour professionnels.\n' +
+            'Ma demande concerne : ...\n\n' +
+            'Merci !'
+        },
+        partenaire: {
+          subject: 'Re-Watt — Demande Partenaire',
+          body:
+            'Bonjour,\n\n' +
+            'Je souhaite rejoindre votre réseau d\'ateliers de réparation/reconditionnement.\n' +
+            'Mon profil / mon atelier : ...\n\n' +
+            'Merci !'
+        },
+        ecosysteme: {
+          subject: 'Re-Watt — Demande Écosystème',
+          body:
+            'Bonjour,\n\n' +
+            'Je vous contacte en tant qu\'investisseur / institutionnel / journaliste / acteur de la transition écologique.\n' +
+            'Ma demande concerne : ...\n\n' +
+            'Merci !'
+        }
+      };
+
+      // ========================================================
+      // 3. Construction des liens mailto sur les cartes
+      //    Si JS est désactivé, le href par défaut
+      //    "mailto:contact@re-watt.fr" (codé en HTML) reste valide.
+      // ========================================================
+      function buildMailto(email, subject, body) {
+        return 'mailto:' + email
+             + '?subject=' + encodeURIComponent(subject)
+             + '&body='    + encodeURIComponent(body);
+      }
+
+      document.querySelectorAll('[data-profile]').forEach(function (link) {
+        const key = link.dataset.profile;
+        const tpl = PROFILE_TEMPLATES[key];
+        if (!tpl) return;
+        link.href = buildMailto(CONTACT_EMAIL, tpl.subject, tpl.body);
+      });
+
+      // Le footer pointe également vers l'email centralisé.
+      document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
+        if (a.dataset.profile) return; // déjà traité
+        a.href = 'mailto:' + CONTACT_EMAIL;
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
