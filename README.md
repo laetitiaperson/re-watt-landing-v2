@@ -66,11 +66,17 @@ Volontairement minimal :
 
 ### `politique-confidentialite.html`
 
-Politique RGPD rédigée et prête à publier, reflétant l'état actuel du site (statique, sans cookies non-essentiels, sans formulaire, contact via `mailto:` uniquement).
+Politique RGPD structurée en deux volets :
+- **(A) État actuel** : rédigé et publiable tel quel — reflète la version statique (GitHub Pages, sans cookies non essentiels, contact `mailto:`).
+- **(B) Bascule WordPress** : encarts jaunes « À activer à la bascule WordPress » contenant les sections déjà préparées (formulaire de contact, mesure d'audience, embeds, cookies par catégorie, hébergeur WP, mesures de sécurité). Il suffira de remplir les placeholders et de retirer le code-couleur jaune au moment de la mise en ligne WP.
 
-**À compléter** : remplacer les zones `<span class="placeholder">` (raison sociale, adresse, SIREN, date de mise à jour). Repérables visuellement (fond jaune pâle) — un Cmd+F sur "placeholder" les fait toutes apparaître.
+**À compléter dès maintenant** : remplacer les zones `<span class="placeholder">` (raison sociale, adresse, SIREN, date de mise à jour). Repérables visuellement (fond jaune pâle) — un Cmd+F sur "placeholder" les fait toutes apparaître.
 
-À mettre à jour le jour où le site introduira analytics, formulaire serveur, embed YouTube, newsletter, etc. — une section dédiée et un bandeau cookies CNIL seront alors à ajouter.
+⚠️ Disclaimer : trame rédigée par un dév, pas un avocat. Relecture juridique recommandée pour usage commercial sérieux, **et obligatoire au moment de la bascule WordPress**.
+
+### `DESIGN-HANDOFF.md`
+
+Document de référence pour la personne qui intégrera la landing sur WordPress. Couvre : palette extraite du PPTX, typographie, tokens layout, breakpoints, structure des 7 blocs avec specs détaillées (copy, comportements, mailto), accessibilité, SEO, et checklist de migration. À fournir à l'intégrateur ou intégratrice avec accès au dépôt.
 
 ## 4. Déploiement Netlify (drag-and-drop)
 
