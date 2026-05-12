@@ -10,10 +10,13 @@ re-watt-landing-v2/
 ├── mentions-legales.html   ← page mentions légales (placeholder à rédiger)
 ├── README.md
 └── assets/
-    ├── logo-rewatt.png     ← header
-    ├── picto-laureat.png   ← bloc partenaires (col. 1)
-    ├── logo-rcube.jpg      ← bloc partenaires (col. 2)
-    └── logo-gsm-master.png ← bloc partenaires (col. 3)
+    ├── logo-rewatt.png       ← header
+    ├── picto-laureat.png     ← bloc partenaires (col. 1)
+    ├── logo-rcube.jpg        ← bloc partenaires (col. 2)
+    ├── logo-gsm-master.png   ← bloc partenaires (col. 3)
+    ├── favicon.png           ← favicon (crop du RW du logo)
+    ├── favicon.ico           ← favicon legacy (16/32/48)
+    └── apple-touch-icon.png  ← apple touch icon 180×180
 ```
 
 ## 1. Changer l'email destinataire
@@ -70,7 +73,7 @@ Mise à jour ultérieure : re-glisser le dossier sur la même URL Netlify, ou `n
 ## Notes techniques
 
 - Police : Google Fonts **Inter** (poids 400, 500, 700, 800).
-- Favicon : SVG inline (data URI) — initiales RW sur fond vert Re-Watt. Pas de fichier `.ico` à gérer.
+- Favicon : crop du graphique **RW** depuis `logo-rewatt.png` (fond transparent). Trois formats fournis pour couvrir tous les navigateurs : `assets/favicon.png` (512×512), `assets/favicon.ico` (16/32/48 multi-résolutions) et `assets/apple-touch-icon.png` (180×180).
 - Couleurs Bleu & Vert Re-Watt extraites directement du PPTX `Re-Watt Offre Partenaires Corners Phase 1.pptx` (analyse des slides XML). Le PNG d'essais ("Police avec contour blanc…") les confirme visuellement.
 - Header sticky avec `position: sticky` + `backdrop-filter` (effet verre dépoli).
 - Bouton "Back to top" : apparaît après 400 px de scroll.
