@@ -83,9 +83,6 @@ Document de référence pour la personne qui intégrera la landing sur WordPress
 
 Guide pratique de migration côté client. Couvre les décisions à prendre (WordPress.com vs .org, choix d'hébergeur, DIY vs prestataire), le calendrier-type sur une semaine, la bascule DNS J0, les coûts prévisionnels, et les checks J+1 / J+7. À lire en premier si tu envisages la migration.
 
-### `BRIEF-PRESTATAIRE.md`
-
-Cahier des charges prêt à envoyer à un freelance WordPress. Contexte, périmètre, livrables attendus, specs techniques, RGPD, calendrier, modalités de devis et de paiement. À utiliser tel quel ou à adapter avant envoi.
 
 ## 4. Déploiement Netlify (drag-and-drop)
 

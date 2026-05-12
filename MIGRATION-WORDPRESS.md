@@ -5,7 +5,6 @@ Guide pratique pour faire passer la landing actuelle (statique sur GitHub Pages)
 > **Documents liés** :
 > - [`DESIGN-HANDOFF.md`](./DESIGN-HANDOFF.md) — specs visuelles et fonctionnelles de la landing, à fournir à toute personne qui intègre.
 > - [`index.html`](./index.html) — source de vérité visuelle (la version WP doit reproduire ça au pixel).
-> - [`BRIEF-PRESTATAIRE.md`](./BRIEF-PRESTATAIRE.md) — cahier des charges prêt à envoyer si tu prends un freelance.
 
 ---
 
@@ -294,5 +293,4 @@ Si tu prends ensuite un **contrat de maintenance** WordPress avec un freelance o
 ## 9. Si tu as besoin d'aide
 
 - Pour aller plus loin sur les specs visuelles : ouvrir [`DESIGN-HANDOFF.md`](./DESIGN-HANDOFF.md).
-- Pour briefer un freelance : ouvrir [`BRIEF-PRESTATAIRE.md`](./BRIEF-PRESTATAIRE.md).
 - Pour reproduire un détail visuel précis : ouvrir [`index.html`](./index.html) en local et inspecter avec les outils de dev du navigateur.
