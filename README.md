@@ -79,6 +79,14 @@ Le bandeau est **prêt pour la bascule WordPress** : les toggles existent déjà
 
 Document de référence pour la personne qui intégrera la landing sur WordPress. Couvre : palette extraite du PPTX, typographie, tokens layout, breakpoints, structure des 7 blocs avec specs détaillées (copy, comportements, mailto), accessibilité, SEO, et checklist de migration. À fournir à l'intégrateur ou intégratrice avec accès au dépôt.
 
+### `MIGRATION-WORDPRESS.md`
+
+Guide pratique de migration côté client. Couvre les décisions à prendre (WordPress.com vs .org, choix d'hébergeur, DIY vs prestataire), le calendrier-type sur une semaine, la bascule DNS J0, les coûts prévisionnels, et les checks J+1 / J+7. À lire en premier si tu envisages la migration.
+
+### `BRIEF-PRESTATAIRE.md`
+
+Cahier des charges prêt à envoyer à un freelance WordPress. Contexte, périmètre, livrables attendus, specs techniques, RGPD, calendrier, modalités de devis et de paiement. À utiliser tel quel ou à adapter avant envoi.
+
 ## 4. Déploiement Netlify (drag-and-drop)
 
 1. Ouvre [https://app.netlify.com/drop](https://app.netlify.com/drop).
