@@ -406,14 +406,9 @@
       font-size: clamp(1.25rem, 2.25vw, 1.75rem);
       font-weight: 500;
       letter-spacing: 0.04em;
+      word-spacing: 0.25em;   /* respiration entre les 4 verbes */
       color: var(--vert-rewatt);
       line-height: 1.4;
-    }
-    .promise__sep {
-      display: inline-block;
-      margin: 0 0.5em;
-      color: var(--border);
-      font-weight: 400;
     }
 
     /* ============================================================
@@ -1002,12 +997,7 @@
          ============================================================ -->
     <section class="section promise" aria-label="Notre promesse">
       <div class="container">
-        <p class="promise__sentence">
-          Diagnostiquer<span class="promise__sep" aria-hidden="true">·</span>
-          réparer<span class="promise__sep" aria-hidden="true">·</span>
-          reconditionner<span class="promise__sep" aria-hidden="true">·</span>
-          prolonger.
-        </p>
+        <p class="promise__sentence">Diagnostiquer Réparer Reconditionner Prolonger</p>
       </div>
     </section>
 

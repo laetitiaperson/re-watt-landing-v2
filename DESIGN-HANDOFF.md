@@ -141,10 +141,10 @@ L'ordre et les couleurs doivent rester exactement comme ça.
 ### 4.4 Bloc Promesse
 
 Phrase unique centrée :
-> Diagnostiquer · réparer · reconditionner · prolonger.
+> Diagnostiquer Réparer Reconditionner Prolonger
 
-- Taille `clamp(1.25rem, 2.25vw, 1.75rem)`, weight 500, letter-spacing 0.04em, couleur `--vert-rewatt`.
-- Séparateurs `·` (middle dot) en couleur `--border` (gris clair).
+- Taille `clamp(1.25rem, 2.25vw, 1.75rem)`, weight 500, letter-spacing 0.04em, word-spacing 0.25em, couleur `--vert-rewatt`.
+- 4 verbes capitalisés, séparés par des espaces (pas de ponctuation, pas de point final).
 
 ### 4.5 Bloc "Vous êtes…" `#contact`
 
