@@ -6,8 +6,9 @@ One-pager statique en HTML/CSS/JS vanilla. Aucun build, aucune dépendance hors 
 
 ```
 re-watt-landing-v2/
-├── index.html              ← landing principale (tout HTML + CSS + JS inline)
-├── mentions-legales.html   ← page mentions légales (placeholder à rédiger)
+├── index.html                       ← landing principale (tout HTML + CSS + JS inline)
+├── mentions-legales.html            ← page mentions légales (placeholder à rédiger)
+├── politique-confidentialite.html   ← politique de confidentialité (à compléter avec les infos légales)
 ├── README.md
 └── assets/
     ├── logo-rewatt.png       ← header
@@ -52,14 +53,24 @@ Toute la palette est en variables CSS dans `:root`, en haut du `<style>` de `ind
 
 Modifier ici → propagation dans toute la page.
 
-## 3. Mentions légales
+## 3. Pages légales
 
-Le fichier `mentions-legales.html` est volontairement minimal :
+### `mentions-legales.html`
+
+Volontairement minimal :
 - un titre `<h1>Mentions légales</h1>`
 - un placeholder `Contenu à venir.`
 - un lien de retour vers `index.html`
 
-**Le contenu réel reste à rédiger** (RGPD : éditeur du site, hébergeur, données collectées, etc.).
+**À compléter** : éditeur du site (raison sociale, forme juridique, siège, SIREN/RCS, capital), directeur de publication, hébergeur (GitHub Inc. ou Netlify), contact.
+
+### `politique-confidentialite.html`
+
+Politique RGPD rédigée et prête à publier, reflétant l'état actuel du site (statique, sans cookies non-essentiels, sans formulaire, contact via `mailto:` uniquement).
+
+**À compléter** : remplacer les zones `<span class="placeholder">` (raison sociale, adresse, SIREN, date de mise à jour). Repérables visuellement (fond jaune pâle) — un Cmd+F sur "placeholder" les fait toutes apparaître.
+
+À mettre à jour le jour où le site introduira analytics, formulaire serveur, embed YouTube, newsletter, etc. — une section dédiée et un bandeau cookies CNIL seront alors à ajouter.
 
 ## 4. Déploiement Netlify (drag-and-drop)
 
