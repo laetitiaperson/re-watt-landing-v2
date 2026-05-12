@@ -6,10 +6,10 @@ One-pager statique en HTML/CSS/JS vanilla. Aucun build, aucune dépendance hors 
 
 ```
 re-watt-landing-v2/
-├── index.html                       ← landing principale (tout HTML + CSS + JS inline)
+├── index.html                       ← landing + bandeau cookies + modal RGPD (tout inline)
 ├── mentions-legales.html            ← page mentions légales (placeholder à rédiger)
-├── politique-confidentialite.html   ← politique de confidentialité (à compléter avec les infos légales)
 ├── README.md
+├── DESIGN-HANDOFF.md                ← doc pour l'intégrateur WordPress
 └── assets/
     ├── logo-rewatt.png       ← header
     ├── picto-laureat.png     ← bloc partenaires (col. 1)
@@ -64,15 +64,16 @@ Volontairement minimal :
 
 **À compléter** : éditeur du site (raison sociale, forme juridique, siège, SIREN/RCS, capital), directeur de publication, hébergeur (GitHub Inc. ou Netlify), contact.
 
-### `politique-confidentialite.html`
+### Politique de confidentialité
 
-Politique RGPD structurée en deux volets :
-- **(A) État actuel** : rédigé et publiable tel quel — reflète la version statique (GitHub Pages, sans cookies non essentiels, contact `mailto:`).
-- **(B) Bascule WordPress** : encarts jaunes « À activer à la bascule WordPress » contenant les sections déjà préparées (formulaire de contact, mesure d'audience, embeds, cookies par catégorie, hébergeur WP, mesures de sécurité). Il suffira de remplir les placeholders et de retirer le code-couleur jaune au moment de la mise en ligne WP.
+La page dédiée a été supprimée. À sa place, un **bandeau de consentement aux cookies** + **modal de personnalisation** ont été intégrés dans `index.html`. Le modal contient une notice RGPD condensée (contact, droits, mention CNIL) ainsi que les choix par catégorie (mesure d'audience, contenus tiers).
 
-**À compléter dès maintenant** : remplacer les zones `<span class="placeholder">` (raison sociale, adresse, SIREN, date de mise à jour). Repérables visuellement (fond jaune pâle) — un Cmd+F sur "placeholder" les fait toutes apparaître.
+- **Bandeau** : apparaît au bas de la page à la 1re visite. 3 boutons : *Tout refuser* / *Personnaliser* / *Tout accepter*.
+- **Modal de personnalisation** : ouvert via *Personnaliser* ou via le lien "Politique de confidentialité" du footer.
+- **Persistance** : le choix est stocké dans `localStorage` sous la clé `rewatt-cookie-consent`, version 1, durée 13 mois (recommandation CNIL).
+- **Pour réinitialiser et revoir le bandeau** : ouvrir la console et exécuter `localStorage.removeItem('rewatt-cookie-consent')`, puis recharger.
 
-⚠️ Disclaimer : trame rédigée par un dév, pas un avocat. Relecture juridique recommandée pour usage commercial sérieux, **et obligatoire au moment de la bascule WordPress**.
+Le bandeau est **prêt pour la bascule WordPress** : les toggles existent déjà, il suffira de brancher les scripts analytics / embeds réels sur les valeurs `localStorage.rewatt-cookie-consent`.
 
 ### `DESIGN-HANDOFF.md`
 

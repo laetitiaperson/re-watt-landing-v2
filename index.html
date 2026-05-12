@@ -641,6 +641,278 @@
     .back-to-top svg { width: 20px; height: 20px; }
 
     /* ============================================================
+       BANDEAU + MODAL DE CONSENTEMENT AUX COOKIES
+       Apparaît à la 1re visite (état localStorage vide).
+       Réouvrable depuis le footer ("Politique de confidentialité").
+       ============================================================ */
+
+    /* Utilitaire — caché visuellement mais accessible aux lecteurs d'écran */
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
+    }
+
+    /* ===== Bandeau bas de page ===== */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, .08);
+      z-index: 150;
+      transform: translateY(100%);
+      transition: transform 220ms ease;
+    }
+    .cookie-banner.is-visible { transform: translateY(0); }
+    .cookie-banner__inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 20px var(--container-px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    @media (min-width: 1024px) {
+      .cookie-banner__inner {
+        flex-direction: row;
+        align-items: center;
+        gap: 24px;
+      }
+    }
+    .cookie-banner__content { flex: 1; }
+    .cookie-banner__title {
+      margin: 0 0 4px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--anthracite);
+    }
+    .cookie-banner__text {
+      margin: 0;
+      font-size: 0.875rem;
+      color: var(--gris-texte);
+      line-height: 1.5;
+    }
+    .cookie-banner__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ===== Boutons cookies ===== */
+    .btn-cookie {
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--anthracite);
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+      white-space: nowrap;
+    }
+    .btn-cookie:hover { background: rgba(0, 0, 0, .04); }
+    .btn-cookie--primary {
+      background: var(--vert-rewatt);
+      color: var(--white);
+      border-color: var(--vert-rewatt);
+    }
+    .btn-cookie--primary:hover {
+      background: var(--vert-rewatt-dark);
+      border-color: var(--vert-rewatt-dark);
+    }
+
+    /* ===== Modal de personnalisation ===== */
+    .cookie-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 250;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 220ms ease, visibility 220ms ease;
+    }
+    .cookie-modal.is-visible { opacity: 1; visibility: visible; }
+    .cookie-modal__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, .55);
+    }
+    .cookie-modal__panel {
+      position: relative;
+      max-width: 560px;
+      width: calc(100% - 32px);
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+      margin: 16px auto;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px 28px 28px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, .24);
+    }
+    .cookie-modal__close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      background: transparent;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--gris-texte);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cookie-modal__close:hover { background: rgba(0, 0, 0, .04); color: var(--anthracite); }
+    .cookie-modal__close svg { width: 20px; height: 20px; }
+
+    .cookie-modal__title {
+      margin: 0 0 16px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--anthracite);
+      padding-right: 32px;
+    }
+    .cookie-modal__sub {
+      margin: 24px 0 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--anthracite);
+    }
+    .cookie-modal p {
+      margin: 0 0 12px;
+      font-size: 0.9375rem;
+      color: var(--gris-texte);
+      line-height: 1.55;
+    }
+    .cookie-modal a {
+      color: var(--vert-rewatt);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-weight: 500;
+    }
+    .cookie-modal a:hover { color: var(--vert-rewatt-dark); }
+
+    /* ===== Cartes de catégories ===== */
+    .cookie-cat {
+      display: block;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: border-color var(--transition);
+    }
+    .cookie-cat--locked { cursor: default; }
+    .cookie-cat:not(.cookie-cat--locked):hover { border-color: var(--gris-sec); }
+    .cookie-cat__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .cookie-cat__name {
+      font-weight: 500;
+      color: var(--anthracite);
+      font-size: 0.9375rem;
+    }
+    .cookie-cat__status {
+      font-size: 0.75rem;
+      color: var(--gris-sec);
+      background: var(--bg-footer);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+    .cookie-cat__desc {
+      margin: 0;
+      font-size: 0.8125rem;
+      color: var(--gris-texte);
+      line-height: 1.45;
+    }
+
+    /* ===== Toggle switch ===== */
+    .cookie-toggle {
+      position: relative;
+      display: inline-block;
+      width: 38px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+    .cookie-toggle input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+    .cookie-toggle__slider {
+      position: absolute;
+      inset: 0;
+      background: #C7CDD3;
+      border-radius: 999px;
+      transition: background var(--transition);
+    }
+    .cookie-toggle__slider::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform var(--transition);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+    }
+    .cookie-toggle input:checked ~ .cookie-toggle__slider {
+      background: var(--vert-rewatt);
+    }
+    .cookie-toggle input:checked ~ .cookie-toggle__slider::before {
+      transform: translateX(16px);
+    }
+    .cookie-toggle input:focus-visible ~ .cookie-toggle__slider {
+      outline: 3px solid var(--vert-rewatt);
+      outline-offset: 3px;
+    }
+
+    .cookie-modal__actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .cookie-modal__actions .btn-cookie { flex: 1 1 auto; min-width: 140px; }
+
+    /* ===== Bouton "Politique de confidentialité" du footer (styled as link) ===== */
+    .footer-link-button {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      font: inherit;
+      color: var(--gris-sec);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+    }
+    .footer-link-button:hover { color: var(--vert-rewatt); }
+    .footer-link-button:focus-visible {
+      outline: 3px solid var(--vert-rewatt);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ============================================================
        Préférence "reduced motion"
        ============================================================ */
     @media (prefers-reduced-motion: reduce) {
@@ -873,7 +1145,7 @@
       <div class="site-footer__legal">
         <a href="mentions-legales.html">Mentions légales</a>
         <span aria-hidden="true" style="margin: 0 6px;">·</span>
-        <a href="politique-confidentialite.html">Politique de confidentialité</a>
+        <button type="button" class="footer-link-button" data-cookie="customize">Politique de confidentialité</button>
       </div>
     </div>
   </footer>
@@ -889,6 +1161,126 @@
       <polyline points="6 15 12 9 18 15"/>
     </svg>
   </button>
+
+  <!-- ============================================================
+       BANDEAU DE CONSENTEMENT AUX COOKIES
+       Apparaît à la 1re visite si aucun choix enregistré.
+       ============================================================ -->
+  <aside class="cookie-banner"
+         id="cookie-banner"
+         role="region"
+         aria-label="Cookies et confidentialité"
+         hidden>
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__content">
+        <p class="cookie-banner__title">Cookies et confidentialité</p>
+        <p class="cookie-banner__text">
+          Ce site n'utilise actuellement aucun cookie non essentiel. Vous pouvez
+          néanmoins enregistrer vos préférences&nbsp;: elles seront appliquées
+          dès la mise en ligne de la version WordPress du site.
+        </p>
+      </div>
+      <div class="cookie-banner__actions">
+        <button type="button" class="btn-cookie" data-cookie="reject-all">Tout refuser</button>
+        <button type="button" class="btn-cookie" data-cookie="customize">Personnaliser</button>
+        <button type="button" class="btn-cookie btn-cookie--primary" data-cookie="accept-all">Tout accepter</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       MODAL DE PERSONNALISATION + NOTICE DE CONFIDENTIALITÉ
+       Ouvrable via :
+        - bouton "Personnaliser" du bandeau
+        - lien "Politique de confidentialité" du footer
+       ============================================================ -->
+  <div class="cookie-modal"
+       id="cookie-modal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="cookie-modal-title"
+       hidden>
+    <div class="cookie-modal__overlay" data-cookie="close-modal" aria-hidden="true"></div>
+    <div class="cookie-modal__panel" role="document">
+
+      <button type="button"
+              class="cookie-modal__close"
+              data-cookie="close-modal"
+              aria-label="Fermer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true" focusable="false">
+          <path d="M6 6 l12 12 M6 18 L18 6"/>
+        </svg>
+      </button>
+
+      <h2 class="cookie-modal__title" id="cookie-modal-title">Confidentialité et cookies</h2>
+
+      <p>
+        Re-Watt traite les données personnelles conformément au RGPD. Pour toute
+        question ou exercice de vos droits (accès, rectification, suppression,
+        opposition, portabilité), écrivez-nous à
+        <a href="mailto:contact@re-watt.fr">contact@re-watt.fr</a>. Vous pouvez
+        également déposer une réclamation auprès de la
+        <a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener noreferrer">CNIL</a>.
+      </p>
+
+      <p>
+        <strong>État actuel&nbsp;:</strong> ce site n'utilise aucun cookie non
+        essentiel et ne collecte aucune donnée d'audience. Le seul traitement
+        est l'e-mail que vous envoyez via les liens «&nbsp;Nous écrire&nbsp;».
+      </p>
+
+      <h3 class="cookie-modal__sub">Vos préférences pour les futurs cookies</h3>
+
+      <!-- Catégorie 1 — Essentiels (verrouillé) -->
+      <div class="cookie-cat cookie-cat--locked">
+        <div class="cookie-cat__head">
+          <span class="cookie-cat__name">Cookies essentiels</span>
+          <span class="cookie-cat__status">Toujours actifs</span>
+        </div>
+        <p class="cookie-cat__desc">
+          Strictement nécessaires au fonctionnement du site. Pas de choix possible.
+        </p>
+      </div>
+
+      <!-- Catégorie 2 — Mesure d'audience -->
+      <label class="cookie-cat">
+        <div class="cookie-cat__head">
+          <span class="cookie-cat__name">Mesure d'audience</span>
+          <span class="cookie-toggle">
+            <input type="checkbox" id="consent-analytics">
+            <span class="cookie-toggle__slider" aria-hidden="true"></span>
+            <span class="visually-hidden">Activer la mesure d'audience</span>
+          </span>
+        </div>
+        <p class="cookie-cat__desc">
+          Statistiques anonymes (pages visitées, durée, source de trafic) pour
+          améliorer le site. Aucun outil actuellement actif.
+        </p>
+      </label>
+
+      <!-- Catégorie 3 — Contenus tiers -->
+      <label class="cookie-cat">
+        <div class="cookie-cat__head">
+          <span class="cookie-cat__name">Contenus tiers (embeds)</span>
+          <span class="cookie-toggle">
+            <input type="checkbox" id="consent-embeds">
+            <span class="cookie-toggle__slider" aria-hidden="true"></span>
+            <span class="visually-hidden">Activer les contenus tiers</span>
+          </span>
+        </div>
+        <p class="cookie-cat__desc">
+          Vidéos YouTube, flux LinkedIn, etc., qui déposent leurs propres cookies.
+          Aucun embed actuellement actif sur ce site.
+        </p>
+      </label>
+
+      <div class="cookie-modal__actions">
+        <button type="button" class="btn-cookie" data-cookie="reject-all">Tout refuser</button>
+        <button type="button" class="btn-cookie btn-cookie--primary" data-cookie="save">Enregistrer mes choix</button>
+      </div>
+
+    </div>
+  </div>
 
   <!-- ============================================================
        JS — comportements minimaux, aucun tracking
@@ -1020,7 +1412,129 @@
       });
 
       // ========================================================
-      // 5. Bouton "Back to top"
+      // 5. Bandeau + modal de consentement aux cookies
+      //    - 1re visite (pas de localStorage) → bandeau visible
+      //    - "Tout accepter" / "Tout refuser" → enregistre directement
+      //    - "Personnaliser" → ouvre le modal
+      //    - Lien "Politique de confidentialité" du footer → ouvre le modal
+      //    - Choix conservé pendant 13 mois (durée recommandée CNIL)
+      // ========================================================
+      const CONSENT_KEY = 'rewatt-cookie-consent';
+      const CONSENT_VERSION = 1;
+      const CONSENT_VALIDITY_DAYS = 13 * 30; // 13 mois ≈ 395 jours
+
+      function readConsent() {
+        try {
+          const raw = localStorage.getItem(CONSENT_KEY);
+          if (!raw) return null;
+          const c = JSON.parse(raw);
+          if (c.v !== CONSENT_VERSION) return null;
+          // Expiré ?
+          if (c.ts) {
+            const ageMs = Date.now() - new Date(c.ts).getTime();
+            const maxAgeMs = CONSENT_VALIDITY_DAYS * 24 * 3600 * 1000;
+            if (ageMs > maxAgeMs) return null;
+          }
+          return c;
+        } catch (e) { return null; }
+      }
+
+      function writeConsent(prefs) {
+        const payload = {
+          v: CONSENT_VERSION,
+          essentials: true,
+          analytics: !!prefs.analytics,
+          embeds: !!prefs.embeds,
+          ts: new Date().toISOString()
+        };
+        try { localStorage.setItem(CONSENT_KEY, JSON.stringify(payload)); } catch (e) {}
+      }
+
+      const cookieBanner   = document.getElementById('cookie-banner');
+      const cookieModal    = document.getElementById('cookie-modal');
+      const consentAnalytics = document.getElementById('consent-analytics');
+      const consentEmbeds    = document.getElementById('consent-embeds');
+
+      function showBanner() {
+        cookieBanner.hidden = false;
+        requestAnimationFrame(function () { cookieBanner.classList.add('is-visible'); });
+      }
+      function hideBanner() {
+        cookieBanner.classList.remove('is-visible');
+        setTimeout(function () {
+          if (!cookieBanner.classList.contains('is-visible')) cookieBanner.hidden = true;
+        }, 230);
+      }
+
+      let lastFocusBeforeModal = null;
+      function openCookieModal() {
+        // Charge les valeurs existantes dans les toggles
+        const c = readConsent();
+        consentAnalytics.checked = !!(c && c.analytics);
+        consentEmbeds.checked    = !!(c && c.embeds);
+
+        lastFocusBeforeModal = document.activeElement;
+        cookieModal.hidden = false;
+        requestAnimationFrame(function () { cookieModal.classList.add('is-visible'); });
+        document.body.style.overflow = 'hidden';
+        // Focus initial sur le bouton fermer
+        cookieModal.querySelector('.cookie-modal__close').focus();
+      }
+      function closeCookieModal() {
+        cookieModal.classList.remove('is-visible');
+        document.body.style.overflow = '';
+        setTimeout(function () {
+          if (!cookieModal.classList.contains('is-visible')) cookieModal.hidden = true;
+        }, 230);
+        if (lastFocusBeforeModal && typeof lastFocusBeforeModal.focus === 'function') {
+          lastFocusBeforeModal.focus();
+        }
+      }
+
+      function acceptAll() {
+        writeConsent({ analytics: true, embeds: true });
+        hideBanner();
+        closeCookieModal();
+      }
+      function rejectAll() {
+        writeConsent({ analytics: false, embeds: false });
+        hideBanner();
+        closeCookieModal();
+      }
+      function saveChoices() {
+        writeConsent({
+          analytics: consentAnalytics.checked,
+          embeds:    consentEmbeds.checked
+        });
+        hideBanner();
+        closeCookieModal();
+      }
+
+      // Délégation : tous les boutons portant data-cookie="..."
+      document.addEventListener('click', function (e) {
+        const trigger = e.target.closest('[data-cookie]');
+        if (!trigger) return;
+        switch (trigger.dataset.cookie) {
+          case 'accept-all':  acceptAll();        break;
+          case 'reject-all':  rejectAll();        break;
+          case 'customize':   openCookieModal();  break;
+          case 'close-modal': closeCookieModal(); break;
+          case 'save':        saveChoices();      break;
+        }
+      });
+
+      // Échap pour fermer le modal
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !cookieModal.hidden) {
+          closeCookieModal();
+        }
+      });
+
+      // Affichage initial : pas de choix valide en mémoire → bandeau
+      if (!readConsent()) showBanner();
+
+      // ========================================================
+      // 6. Bouton "Back to top"
       // ========================================================
       const backTop = document.getElementById('back-to-top');
       const SHOW_AT = 400;
