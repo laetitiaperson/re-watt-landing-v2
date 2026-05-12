@@ -372,21 +372,26 @@
 
     /* ============================================================
        BLOC 2 — Mission
+       Aplat bleu Re-Watt pleine largeur, texte blanc.
        ============================================================ */
-    .mission { text-align: center; }
+    .mission {
+      text-align: center;
+      background: var(--bleu-rewatt);
+      color: var(--white);
+    }
     .mission__sentence {
       margin: 0 auto;
       max-width: 800px;
       font-size: clamp(1.5rem, 2.5vw, 2rem);
       font-weight: 500;
       line-height: 1.4;
-      color: var(--anthracite);
+      color: var(--white);
     }
     .mission__divider {
       border: 0;
       width: 64px;
       height: 2px;
-      background: var(--vert-rewatt);
+      background: rgba(255, 255, 255, 0.6);
       margin: 0 auto 40px;
       border-radius: 2px;
     }
@@ -458,7 +463,7 @@
     .profile-card__label {
       font-size: 1.125rem;
       font-weight: 700;
-      color: var(--vert-rewatt);
+      color: var(--bleu-rewatt);
       line-height: 1.3;
     }
     .profile-card__desc {
@@ -794,16 +799,17 @@
 
         <div class="partners__grid">
 
-          <!-- Colonne 1 — Lauréat du réemploi 2025 (lien vers pitch YouTube) -->
+          <!-- Colonne 1 — Lauréat du Réemploi aux Assises Nationales du Réemploi
+               (lien vers pitch YouTube) -->
           <a class="partner-card"
              href="https://www.youtube.com/watch?v=ZKKCYCPfzB8"
              target="_blank"
              rel="noopener noreferrer"
-             aria-label="Lauréat du réemploi 2025 — voir le pitch (YouTube)">
+             aria-label="Lauréat du Réemploi aux Assises Nationales du Réemploi — voir le pitch (YouTube)">
             <div class="partner-card__visual">
               <img src="assets/picto-laureat.png" alt="">
             </div>
-            <span class="partner-card__title">Lauréat du réemploi 2025</span>
+            <span class="partner-card__title">Lauréat du Réemploi aux Assises Nationales du Réemploi</span>
           </a>
 
           <!-- Colonne 2 — RCube -->
