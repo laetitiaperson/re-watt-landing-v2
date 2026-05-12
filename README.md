@@ -2,113 +2,87 @@
 
 One-pager statique en HTML/CSS/JS vanilla. Aucun build, aucune dépendance hors Google Fonts (Inter).
 
-## Structure du projet
+## Structure
 
 ```
-re-watt-landing/
-├── index.html              ← tout le HTML + CSS + JS dans un seul fichier
-├── README.md               ← ce fichier
-├── favicon.ico             ← (déjà fourni)
-├── favicon-16.png          ← (déjà fourni)
-├── favicon-32.png          ← (déjà fourni)
-├── apple-touch-icon.png    ← (déjà fourni)
+re-watt-landing-v2/
+├── index.html              ← landing principale (tout HTML + CSS + JS inline)
+├── mentions-legales.html   ← page mentions légales (placeholder à rédiger)
+├── README.md
 └── assets/
-    ├── logo-rewatt.png     ← À PLACER (logo sans baseline)
-    └── picto-trophee.png   ← À PLACER (picto société à mission)
+    ├── logo-rewatt.png     ← header
+    ├── picto-laureat.png   ← bloc partenaires (col. 1)
+    ├── logo-rcube.jpg      ← bloc partenaires (col. 2)
+    └── logo-gsm-master.png ← bloc partenaires (col. 3)
 ```
 
-## 1. Où poser les 2 images
+## 1. Changer l'email destinataire
 
-Crée le dossier `assets/` à côté de `index.html` et place-y les deux fichiers tels quels :
-
-- `assets/logo-rewatt.png`   — utilisé uniquement dans la section 4 (signature).
-- `assets/picto-trophee.png` — utilisé uniquement dans la section 4, à 80 px.
-
-Les chemins sont relatifs, donc le site fonctionne aussi bien en local qu'une fois déployé.
-
-## 2. Où remplacer `LINKEDIN_URL_PLACEHOLDER`
-
-Dans `index.html`, section 4 (signature visuelle), bloc `<nav class="signature__socials">` :
-
-```html
-<a class="social-link"
-   href="LINKEDIN_URL_PLACEHOLDER"   ← remplacer par l'URL réelle
-   target="_blank"
-   rel="noopener noreferrer"
-   aria-label="LinkedIn Re-Watt">
-```
-
-(Un seul remplacement à faire, une seule fois.)
-
-## 3. Comment changer l'email destinataire
-
-L'email est centralisé dans une **constante JavaScript unique**, en haut du `<script>` en fin de `index.html` :
+Une seule constante JS à modifier, en haut du `<script>` de `index.html` :
 
 ```js
 const CONTACT_EMAIL = 'contact@re-watt.fr';
 ```
 
-Le changer ici met à jour automatiquement :
+Cette constante alimente automatiquement :
+- les 4 cartes mailto du bloc "Vous êtes…" (avec objet et corps pré-remplis),
+- le lien email du footer.
 
-- les 4 cartes mailto de la section "Vous êtes…",
-- le lien `contact@re-watt.fr` du footer.
+Les objets et corps des 4 messages se modifient juste en dessous, dans l'objet `PROFILE_TEMPLATES`. L'encodage URL (espaces, accents, em-dashes, retours à la ligne) est fait automatiquement par `encodeURIComponent` — tu peux écrire en français naturel.
 
-Pour modifier les objets et corps de message des 4 cartes, édite l'objet `PROFILE_TEMPLATES` juste en dessous. L'encodage URL (espaces, accents, retours à la ligne, em-dashes) est fait automatiquement par `encodeURIComponent`, donc tu peux écrire les chaînes en français naturel sans te soucier des caractères spéciaux.
+## 2. Changer les couleurs
 
-## 4. Comment swap les variantes de la question hero
+Toute la palette est en variables CSS dans `:root`, en haut du `<style>` de `index.html` :
 
-La section 1 (`<section class="section hero">`) contient le `<h1>` avec **3 variantes** : la première active, les deux autres en commentaire HTML.
-
-```html
-<h1 class="hero__question" id="hero-title">
-  <!-- Variante par défaut (active) -->
-  Et si 80&nbsp;% des batteries jetées étaient réparables&nbsp;?
-
-  <!-- Variante A — décommenter pour activer (et commenter la variante par défaut)
-  80&nbsp;% des batteries au recyclage sont réparables. Et si on s'y mettait&nbsp;?
-  -->
-
-  <!-- Variante B — décommenter pour activer (et commenter la variante par défaut)
-  Pourquoi jeter une batterie sur 5 qui est réparable… alors qu'elles le sont toutes à 80&nbsp;%&nbsp;?
-  -->
-</h1>
+```css
+:root {
+  --bleu-rewatt:      #2B82C9;  /* extrait du PPTX */
+  --vert-rewatt:      #4CAF50;  /* extrait du PPTX */
+  --anthracite:       #2B2B2B;
+  --gris-texte:       #5C5C5C;
+  --bg:               #FAFAF7;
+  --bg-footer:        #F4F7F9;
+  --border:           #E5E5E5;
+  /* ... */
+}
 ```
 
-Pour swap : commente la variante active, décommente celle que tu veux.
+Modifier ici → propagation dans toute la page.
 
-### Hero de repli (si la question ne fonctionne pas visuellement)
+## 3. Mentions légales
 
-Juste sous la section 1, un bloc `<!-- ===== HERO DE REPLI (désactivé) ===== -->` contient une version sobre avec uniquement la phrase mission (sans logo). Pour l'activer :
+Le fichier `mentions-legales.html` est volontairement minimal :
+- un titre `<h1>Mentions légales</h1>`
+- un placeholder `Contenu à venir.`
+- un lien de retour vers `index.html`
 
-1. Commente toute la `<section class="section hero">` du dessus.
-2. Décommente le bloc `<section class="section hero hero--fallback">`.
+**Le contenu réel reste à rédiger** (RGPD : éditeur du site, hébergeur, données collectées, etc.).
+
+## 4. Déploiement Netlify (drag-and-drop)
+
+1. Ouvre [https://app.netlify.com/drop](https://app.netlify.com/drop).
+2. Glisse le dossier **`re-watt-landing-v2/`** entier sur la zone de drop (le dossier complet, pas un fichier seul).
+3. Netlify déploie en quelques secondes et fournit une URL en `*.netlify.app`.
+4. Pour brancher un domaine personnalisé (`re-watt.fr`) : onglet **Domain settings** → **Add custom domain**.
+
+Mise à jour ultérieure : re-glisser le dossier sur la même URL Netlify, ou `netlify deploy` en CLI.
+
+## Notes techniques
+
+- Police : Google Fonts **Inter** (poids 400, 500, 700, 800).
+- Favicon : SVG inline (data URI) — initiales RW sur fond vert Re-Watt. Pas de fichier `.ico` à gérer.
+- Couleurs Bleu & Vert Re-Watt extraites directement du PPTX `Re-Watt Offre Partenaires Corners Phase 1.pptx` (analyse des slides XML). Le PNG d'essais ("Police avec contour blanc…") les confirme visuellement.
+- Header sticky avec `position: sticky` + `backdrop-filter` (effet verre dépoli).
+- Bouton "Back to top" : apparaît après 400 px de scroll.
+- Menu burger plein écran sur mobile (`<768px`), avec gestion clavier (Échap pour fermer).
+- Accessibilité : WCAG AA — skip link, focus visible, ARIA labels, zones de tap ≥ 44 px, `prefers-reduced-motion` respecté.
+- SEO : `<title>`, meta description, Open Graph, Twitter Card, `lang="fr"`.
+- Aucun tracking, aucun cookie banner.
 
 ## Aperçu local
 
-Ouvre `index.html` dans un navigateur (double-clic), **ou** sers le dossier :
-
 ```bash
-cd re-watt-landing
+cd re-watt-landing-v2
 python3 -m http.server 8000
 # puis http://localhost:8000
 ```
-
-## Déploiement Netlify (drag-and-drop)
-
-1. Ouvre [https://app.netlify.com/drop](https://app.netlify.com/drop) dans ton navigateur.
-2. Glisse le dossier **`re-watt-landing/`** entier sur la zone de drop (pas le fichier seul — le dossier).
-3. Netlify déploie en quelques secondes et te fournit une URL en `*.netlify.app`.
-4. Pour brancher un domaine personnalisé (`re-watt.fr`) : onglet **Domain settings** → **Add custom domain**.
-
-Pour mettre à jour le site plus tard : re-glisse le dossier sur la même URL Netlify, ou utilise `netlify deploy` en CLI.
-
-## Accessibilité & SEO
-
-- WCAG AA : contraste OK sur palette, focus clavier visible (`:focus-visible`), zones tactiles ≥ 44 px sur les liens sociaux, lien "skip to content", balises sémantiques (`<header>`, `<main>`, `<section>`, `<footer>`, `<nav>`).
-- SEO : `<title>`, `<meta description>`, Open Graph, Twitter Card, favicons multi-tailles, `lang="fr"`.
-- Préférence "reduced motion" respectée.
-- Aucun tracking, aucun cookie banner.
-
-## Tokens design
-
-Toutes les valeurs (couleurs, espacements, rayons, ombres) sont en variables CSS dans `:root`, en haut du `<style>`. Un seul endroit à modifier pour propager.
