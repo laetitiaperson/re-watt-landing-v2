@@ -10,15 +10,36 @@ re-watt-landing-v2/
 ├── mentions-legales.html            ← page mentions légales (placeholder à rédiger)
 ├── README.md
 ├── DESIGN-HANDOFF.md                ← doc pour l'intégrateur WordPress
+├── MIGRATION-WORDPRESS.md           ← guide pratique de migration
 └── assets/
     ├── logo-rewatt.png       ← header
-    ├── picto-laureat.png     ← bloc partenaires (col. 1)
-    ├── logo-rcube.jpg        ← bloc partenaires (col. 2)
-    ├── logo-gsm-master.png   ← bloc partenaires (col. 3)
-    ├── favicon.png           ← favicon (crop du RW du logo)
+    ├── picto-laureat.png     ← bloc Reconnaissance (sous-section 5A)
+    ├── logo-rcube.jpg        ← bloc Partenaires (sous-section 5B, col. 1)
+    ├── logo-gsm-master.png   ← bloc Partenaires (sous-section 5B, col. 2)
     ├── favicon.ico           ← favicon legacy (16/32/48)
+    ├── favicon-512.png       ← favicon moderne 512×512
     └── apple-touch-icon.png  ← apple touch icon 180×180
 ```
+
+## Structure actuelle des sections
+
+L'ordre vertical de la page (post-refonte) :
+
+1. **Header sticky** — logo + baseline + nav + burger mobile
+2. **Mission** (`#concept`) — titre bleu Re-Watt MAJUSCULES, aligné à gauche, style Test 1
+3. **Factoid 80 %** (`#chiffre-cle`) — kicker "Le saviez-vous ?" + chiffre XXL bleu + 3 lignes, style Test 2 deux colonnes
+4. **Promesse** — *Diagnostiquer Réparer Reconditionner Prolonger*, vert, encadré de filets fins, fond légèrement teinté
+5. **"Vous êtes…"** (`#contact`) — 4 cartes mailto
+6. **Partenaires** (`#partenaires`) — scindé en deux sous-sections :
+   - **5A — Une reconnaissance officielle** : picto + caption Lauréat, lien YouTube (centré)
+   - séparateur
+   - **5B — Une expertise reconnue…** : RCube + GSM Master en 2 colonnes
+7. **Footer** + bouton "Back to top" flottant
+8. **Bandeau cookies** (1re visite) + modal RGPD ouvrable depuis le footer
+
+## Police
+
+**Montserrat** (Google Fonts), poids 400 / 500 / 600 / 700 / 800 / 900.
 
 ## 1. Changer l'email destinataire
 

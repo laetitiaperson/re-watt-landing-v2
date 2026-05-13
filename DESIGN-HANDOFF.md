@@ -33,10 +33,10 @@ Toutes les couleurs ont été extraites du deck partenaires (`Re-Watt Offre Part
 
 ### 1.2 Typographie
 
-- **Famille unique** : Inter (Google Fonts).
-- **Poids utilisés** : 400 (regular), 500 (medium), 700 (bold), 800 (extra-bold).
+- **Famille unique** : **Montserrat** (Google Fonts).
+- **Poids utilisés** : 400 (regular), 500 (medium), 600 (semi-bold), 700 (bold), 800 (extra-bold), 900 (black, pour le "80 %" en très gros).
 - **Sur WordPress** : enqueue de la police via `wp_enqueue_style` ou plugin (ex. *Custom Fonts*, *OMGF* pour self-host).
-  Lien officiel : `https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap`
+  Lien officiel : `https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap`
 
 ### 1.3 Iconographie / assets fournis
 
@@ -92,18 +92,21 @@ Sur WordPress, uploader le tout dans la Media Library.
 L'ordre vertical et les ancres doivent être respectés pour préserver les liens du menu :
 
 1. **Header sticky** (`<header>`) — logo + baseline inline + nav 3 entrées
-2. **`#hero`** — chiffre choc 80 %
-3. **`#concept`** — phrase mission (aplat bleu)
-4. **Promesse** — verbes "Diagnostiquer · réparer · reconditionner · prolonger."
+2. **`#concept`** — Mission (titre bleu MAJUSCULES, style Test 1, aligné à gauche)
+3. **`#chiffre-cle`** — Factoid 80 % (style Test 2, 2 colonnes)
+4. **Promesse** — *Diagnostiquer Réparer Reconditionner Prolonger* (filets décoratifs, fond très légèrement teinté)
 5. **`#contact`** — "Vous êtes…" 4 cartes mailto
-6. **`#partenaires`** — 3 colonnes Lauréat / RCube / GSM Master
+6. **`#partenaires`** — scindé en 2 sous-sections :
+   - **5A — Une reconnaissance officielle** (Lauréat seul, centré)
+   - séparateur
+   - **5B — Une expertise reconnue…** (RCube + GSM Master en 2 colonnes)
 7. **Footer**
 8. **Bouton back-to-top** (flottant, hors flux)
+9. **Bandeau cookies + modal RGPD**
 
 ⚠️ **Slugs à préserver** lors de la migration WP (pour ne pas casser les liens externes éventuels) :
 - `/mentions-legales` (page WP avec slug `mentions-legales`)
-- `/politique-confidentialite` (page WP avec slug `politique-confidentialite`)
-- Ancres on-page : `#hero`, `#concept`, `#contact`, `#partenaires`, `#top`
+- Ancres on-page : `#concept`, `#chiffre-cle`, `#contact`, `#partenaires`, `#top`
 
 ---
 
@@ -118,33 +121,39 @@ L'ordre vertical et les ancres doivent être respectés pour préserver les lien
 - **Au centre** (visible ≥768 px) : nav avec 3 liens — *Notre concept* / *Nos partenaires* / *Contact*. Hover et focus : couleur passe à `--vert-rewatt`, soulignement vert (`::after` animé via `transform: scaleX`).
 - **À droite** (visible <768 px) : burger 44×44 px qui ouvre un menu plein écran. Animation barres → croix sur état ouvert.
 
-### 4.2 Bloc Hero `#hero`
+### 4.2 Bloc Mission `#concept` (style Test 1)
 
-Hiérarchie typographique stricte, centrée :
+Premier bloc visible après le header. Titre dominant, aligné à gauche, max-width ~18ch pour des retours à la ligne naturels.
 
-| Élément          | Texte                                           | Style                                                                                      |
-|------------------|-------------------------------------------------|--------------------------------------------------------------------------------------------|
-| Kicker           | "Le saviez-vous ?"                              | `0.875rem`, weight 500, anthracite, letter-spacing `0.2em`, uppercase                      |
-| Chiffre          | "80 %" (avec espace insécable)                  | `clamp(6rem, 18vw, 14rem)`, weight 800, **bleu Re-Watt**, line-height 0.9                  |
-| Lead             | "des batteries électriques qui sont remplacées" | `clamp(1.5rem, 3vw, 2.25rem)`, weight 400, anthracite, max-width 22ch                      |
-| Claim (H1)       | "sont en réalité réparables"                    | `clamp(1.5rem, 3vw, 2.25rem)`, weight 700, **vert Re-Watt**, uppercase, letter-spacing 0.02em |
+| Élément        | Texte                                                                                 | Style                                                                                                       |
+|----------------|---------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| H1 mission     | "Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous." | `clamp(2.5rem, 7vw, 5.5rem)`, weight 800, **bleu Re-Watt**, uppercase, line-height 1.05, text-align: left |
 
-L'ordre et les couleurs doivent rester exactement comme ça.
+### 4.3 Bloc Factoid 80 % `#chiffre-cle` (style Test 2)
 
-### 4.3 Bloc Mission `#concept`
+Layout deux colonnes desktop, empilé mobile. Kicker discret au-dessus.
 
-- **Aplat pleine largeur** : `background: var(--bleu-rewatt)`.
-- Texte blanc, weight 500, taille `clamp(1.5rem, 2.5vw, 2rem)`, max-width 800 px, centré.
-- Phrase : « Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous. »
-- **Aucun séparateur décoratif** (filets précédents supprimés).
+| Élément              | Texte                                                | Style                                                                              |
+|----------------------|------------------------------------------------------|------------------------------------------------------------------------------------|
+| Kicker               | "Le saviez-vous ?"                                   | `0.875rem`, weight 500, anthracite, letter-spacing `0.2em`, uppercase             |
+| Chiffre (col. gauche) | "80 %" (espace insécable)                            | `clamp(7rem, 20vw, 16rem)`, weight 900, **bleu Re-Watt**, line-height 0.9         |
+| Ligne 1 (col. droite) | "Des batteries électriques qui sont remplacées"      | `clamp(1.5rem, 3vw, 2.5rem)`, weight 700, anthracite, uppercase                   |
+| Ligne 2 (col. droite) | "Sont en réalité"                                    | idem                                                                              |
+| Ligne 3 (col. droite) | "Réparables." (point inclus)                          | idem mais couleur **vert Re-Watt**                                                |
+
+Alignement vertical centré entre les deux colonnes. Gap 40 px desktop / 24 px mobile.
 
 ### 4.4 Bloc Promesse
 
-Phrase unique centrée :
+Phrase unique centrée, encadrée de deux filets décoratifs :
+
 > Diagnostiquer Réparer Reconditionner Prolonger
 
-- Taille `clamp(1.25rem, 2.25vw, 1.75rem)`, weight 500, letter-spacing 0.04em, word-spacing 0.25em, couleur `--vert-rewatt`.
+- Taille `clamp(1.5rem, 3vw, 2.25rem)`, weight 600, letter-spacing 0.05em, word-spacing 0.3em, couleur `--vert-rewatt`.
 - 4 verbes capitalisés, séparés par des espaces (pas de ponctuation, pas de point final).
+- Deux **filets** `<hr>` au-dessus et en dessous : 100 px de large, 2 px de haut, vert Re-Watt, centrés.
+- Fond légèrement teinté `#F4F7F2` (blanc cassé très légèrement vert) pour distinguer la section.
+- Padding vertical 72 px mobile / 120 px desktop.
 
 ### 4.5 Bloc "Vous êtes…" `#contact`
 
@@ -175,20 +184,37 @@ Phrase unique centrée :
 
 > Note WP : si tu remplaces les `mailto:` par un **formulaire de contact** (Contact Form 7, WPForms, Fluent…), prévoir un dropdown "Vous êtes…" avec ces 4 valeurs comme premier champ pour conserver la logique de qualification. Mettre à jour la politique de confidentialité en conséquence (mention RGPD au-dessus du bouton submit).
 
-### 4.6 Bloc Partenaires `#partenaires`
+### 4.6 Bloc Partenaires `#partenaires` (scindé en 5A + 5B)
 
-- Titre H2 centré, max-width 720 px :
-  > « Une expertise reconnue au service de l'économie circulaire »
-- Grille 1 col mobile → 3 col ≥768 px, gap 48 px desktop.
+L'id `#partenaires` est sur la section englobante. Deux sous-sections séparées par un filet décoratif fin.
+
+#### 5A — Une reconnaissance officielle
+
+- Titre H2 centré : « Une reconnaissance officielle »
+  (Variantes possibles : *Notre reconnaissance*, *Reconnu par l'écosystème*)
+- Élément unique cliquable, centré :
+  - Visuel : `picto-laureat.png`, hauteur 160 px
+  - Caption en dessous : « Lauréat du Réemploi aux Assises Nationales du Réemploi »
+  - Lien : `https://www.youtube.com/watch?v=ZKKCYCPfzB8` (`target="_blank" rel="noopener noreferrer"`)
+  - Hover : `translateY(-3px)`, image `opacity: 0.9`
+
+#### Séparateur
+
+Filet décoratif fin (1 px, 80 px de large, gris `--border`), centré, padding 56 px haut/bas.
+
+#### 5B — Une expertise reconnue au service de l'économie circulaire
+
+- Eyebrow discret au-dessus du titre : « NOS PARTENAIRES » (0.75 rem, gris `--gris-sec`, letter-spacing 0.2 em, uppercase)
+- Titre H2 centré, max-width 720 px : « Une expertise reconnue au service de l'économie circulaire »
+- Grille 1 col mobile → 2 col ≥768 px, gap 64 px desktop, max-width 800 px.
 - **Chaque colonne** est un `<a>` cliquable (toute la zone) :
 
-| Col. | Visuel                    | Titre sous l'image                                          | URL externe (`target="_blank" rel="noopener noreferrer"`)                          |
-|------|---------------------------|-------------------------------------------------------------|------------------------------------------------------------------------------------|
-| 1    | `picto-laureat.png`       | Lauréat du Réemploi aux Assises Nationales du Réemploi      | `https://www.youtube.com/watch?v=ZKKCYCPfzB8`                                       |
-| 2    | `logo-rcube.jpg`          | RCube — Fédération du Réemploi & Réparation                 | `https://rcube.org/`                                                                |
-| 3    | `logo-gsm-master.png`     | GSM Master — L'école du Réemploi                            | `https://gsmmaster.fr/`                                                             |
+| Col. | Visuel                    | Titre sous l'image                                          | URL externe                                                  |
+|------|---------------------------|-------------------------------------------------------------|--------------------------------------------------------------|
+| 1    | `logo-rcube.jpg`          | RCube — Fédération du Réemploi & Réparation                 | `https://rcube.org/`                                          |
+| 2    | `logo-gsm-master.png`     | GSM Master — L'école du Réemploi                            | `https://gsmmaster.fr/`                                       |
 
-- Visuel : conteneur de 140 px de haut, `display: flex; align-items: center; justify-content: center;`, image `object-fit: contain; max-height: 140px`.
+- Visuel : conteneur de 120 px de haut, `object-fit: contain; max-height: 120px`.
 - Hover : `translateY(-3px)`, image `opacity: 0.9`.
 
 ### 4.7 Footer

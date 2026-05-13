@@ -51,16 +51,17 @@
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Favicon — généré à partir de la marque RW du logo Re-Watt
-       (crop du PNG logo-rewatt.png, fond transparent) -->
-  <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="icon" sizes="any" href="assets/favicon.ico">
+  <!-- MODIFICATION 4 : Favicons réels (crop de la marque RW du logo) -->
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="assets/favicon-512.png" sizes="512x512">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
-  <!-- Google Font Inter -->
+  <!-- MODIFICATION 4 : police passée d'Inter à Montserrat
+       (poids 400, 500, 600, 700, 800, 900 pour couvrir le corps,
+        les titres de section et le "80 %" en gros) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     /* ============================================================
@@ -108,7 +109,7 @@
     }
     body {
       margin: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       font-weight: 400;
       line-height: 1.6;
       color: var(--anthracite);
@@ -322,18 +323,42 @@
     }
 
     /* ============================================================
-       BLOC 1 — Hero / chiffre choc
+       MODIFICATION 1A — BLOC MISSION (nouveau, placé EN PREMIER)
+       Style "Test 1" : grand titre bleu MAJUSCULES, aligné à gauche,
+       interligne serré, fond clair (pas d'aplat).
        ============================================================ */
-    .hero {
-      text-align: center;
-      padding-top: calc(var(--section-py-mobile) + 24px);
+    .lead-mission {
+      padding-top: calc(var(--section-py-mobile) + 16px);
+      padding-bottom: var(--section-py-mobile);
     }
     @media (min-width: 768px) {
-      .hero { padding-top: calc(var(--section-py-desktop) + 24px); }
+      .lead-mission {
+        padding-top: calc(var(--section-py-desktop) + 16px);
+        padding-bottom: var(--section-py-desktop);
+      }
+    }
+    .lead-mission__sentence {
+      margin: 0;
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      line-height: 1.05;            /* interligne serré (Test 1) */
+      font-weight: 800;
+      color: var(--bleu-rewatt);
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      text-align: left;
+      max-width: 18ch;              /* favorise les retours à la ligne naturels */
     }
 
-    .hero__kicker {
-      margin: 0;
+    /* ============================================================
+       MODIFICATION 1B — BLOC FACTOID 80 % (nouveau, placé en 2e)
+       Style "Test 2" : deux colonnes alignées au centre vertical,
+       "80 %" gauche en XXL bleu, texte droite MAJUSCULES.
+       Kicker discret "LE SAVIEZ-VOUS ?" au-dessus.
+       ============================================================ */
+    .factoid { text-align: left; }
+
+    .factoid__kicker {
+      margin: 0 0 24px;
       font-size: 0.875rem;
       font-weight: 500;
       color: var(--anthracite);
@@ -341,72 +366,73 @@
       text-transform: uppercase;
     }
 
-    .hero__number {
-      margin: 32px 0 32px;
-      font-size: clamp(6rem, 18vw, 14rem);
+    .factoid__row {
+      display: flex;
+      flex-direction: column;     /* mobile : empilé */
+      align-items: flex-start;
+      gap: 24px;
+    }
+    @media (min-width: 768px) {
+      .factoid__row {
+        flex-direction: row;
+        align-items: center;      /* deux colonnes alignées au centre vertical */
+        gap: 40px;
+      }
+    }
+
+    .factoid__number {
+      margin: 0;
+      font-size: clamp(7rem, 20vw, 16rem);
       line-height: 0.9;
-      font-weight: 800;
+      font-weight: 900;            /* Montserrat 900 pour un rendu plus dense */
       color: var(--bleu-rewatt);
       letter-spacing: -0.02em;
+      flex-shrink: 0;
     }
 
-    .hero__lead {
-      margin: 0 auto;
-      max-width: 22ch;
-      font-size: clamp(1.5rem, 3vw, 2.25rem);
-      font-weight: 400;
-      color: var(--anthracite);
-      line-height: 1.25;
-    }
+    .factoid__text { flex: 1; }
 
-    .hero__claim {
-      margin: 16px auto 0;
-      max-width: 22ch;
-      font-size: clamp(1.5rem, 3vw, 2.25rem);
+    .factoid__line {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
       font-weight: 700;
-      color: var(--vert-rewatt);
+      line-height: 1.1;
       text-transform: uppercase;
-      letter-spacing: 0.02em;
-      line-height: 1.2;
+      letter-spacing: 0.01em;
     }
+    .factoid__line + .factoid__line { margin-top: 4px; }
+    .factoid__line--muted  { color: var(--anthracite); }
+    .factoid__line--accent { color: var(--vert-rewatt); }
 
     /* ============================================================
-       BLOC 2 — Mission
-       Aplat bleu Re-Watt pleine largeur, texte blanc.
+       MODIFICATION 2 — BLOC PROMESSE (verbes)
+       Valorisé : filet décoratif au-dessus et en dessous, fond
+       très légèrement teinté, taille augmentée, padding vertical
+       généreux pour bien marquer la section.
        ============================================================ */
-    .mission {
+    .promise {
       text-align: center;
-      background: var(--bleu-rewatt);
-      color: var(--white);
+      background: #F4F7F2;          /* blanc cassé très légèrement vert */
+      padding: 72px 0;
     }
-    .mission__sentence {
-      margin: 0 auto;
-      max-width: 800px;
-      font-size: clamp(1.5rem, 2.5vw, 2rem);
-      font-weight: 500;
-      line-height: 1.4;
-      color: var(--white);
+    @media (min-width: 768px) {
+      .promise { padding: 120px 0; }
     }
-    .mission__divider {
+    .promise__divider {
       border: 0;
-      width: 64px;
+      width: 100px;
       height: 2px;
-      background: rgba(255, 255, 255, 0.6);
-      margin: 0 auto 40px;
+      background: var(--vert-rewatt);
+      margin: 0 auto 32px;
       border-radius: 2px;
     }
-    .mission__divider--bottom { margin: 40px auto 0; }
-
-    /* ============================================================
-       BLOC 3 — Promesse (verbes)
-       ============================================================ */
-    .promise { text-align: center; }
+    .promise__divider--bottom { margin: 32px auto 0; }
     .promise__sentence {
       margin: 0;
-      font-size: clamp(1.25rem, 2.25vw, 1.75rem);
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      word-spacing: 0.25em;   /* respiration entre les 4 verbes */
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      word-spacing: 0.3em;
       color: var(--vert-rewatt);
       line-height: 1.4;
     }
@@ -482,8 +508,12 @@
     .profile-card:hover .profile-card__cta::after { transform: translateX(4px); }
 
     /* ============================================================
-       BLOC 5 — Partenaires
+       MODIFICATION 3 — BLOC 5 PARTENAIRES (scindé en 5A + 5B)
+       5A = "Une reconnaissance officielle" (Lauréat seul, centré)
+       5B = "Une expertise reconnue…" (RCube + GSM Master en 2 col)
        ============================================================ */
+
+    /* ----- Titres communs aux deux sous-sections ----- */
     .partners__title {
       margin: 0 auto 56px;
       text-align: center;
@@ -493,16 +523,82 @@
       color: var(--anthracite);
       max-width: 720px;
     }
+    .partners__eyebrow {
+      display: block;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--gris-sec);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+
+    /* ----- 5A — Reconnaissance officielle (Lauréat seul) ----- */
+    .recognition { text-align: center; }
+    .recognition__card {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 24px;
+      text-decoration: none;
+      color: var(--anthracite);
+      border-radius: var(--radius);
+      transition: transform var(--transition);
+      max-width: 520px;
+    }
+    .recognition__card:hover,
+    .recognition__card:focus-visible {
+      transform: translateY(-3px);
+    }
+    .recognition__visual {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity var(--transition);
+    }
+    .recognition__visual img {
+      height: 160px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .recognition__card:hover .recognition__visual { opacity: 0.9; }
+    .recognition__title {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--anthracite);
+      line-height: 1.4;
+      max-width: 28ch;
+    }
+
+    /* ----- Séparateur entre 5A et 5B ----- */
+    .partners-separator {
+      max-width: 80px;
+      margin: 0 auto;
+      padding: 56px 0;
+    }
+    .partners-separator hr {
+      border: 0;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ----- 5B — Expertise partenaires (RCube + GSM Master) ----- */
     .partners__grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr);          /* mobile : 1 col */
       gap: 32px;
       align-items: stretch;
+      max-width: 800px;                                /* resserre la grille à 2 col */
+      margin: 0 auto;
     }
     @media (min-width: 768px) {
       .partners__grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 48px;
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* desktop : 2 col */
+        gap: 64px;
       }
     }
 
@@ -523,7 +619,7 @@
       transform: translateY(-3px);
     }
     .partner-card__visual {
-      height: 140px;
+      height: 120px;
       width: 100%;
       display: flex;
       align-items: center;
@@ -531,7 +627,7 @@
       transition: opacity var(--transition);
     }
     .partner-card__visual img {
-      max-height: 140px;
+      max-height: 120px;
       max-width: 100%;
       width: auto;
       object-fit: contain;
@@ -968,36 +1064,47 @@
   <main id="main">
 
     <!-- ============================================================
-         BLOC 1 — Hero / chiffre choc
-         Inspiration : "Police avec contour blanc pour compatibilité
-         mode sombre.png" — hiérarchie kicker / 80 % / lead / claim.
+         MODIFICATION 1A — BLOC MISSION (placé EN PREMIER)
+         Style "Test 1" : titre bleu MAJUSCULES, aligné à gauche,
+         interligne serré, sur fond clair.
          ============================================================ -->
-    <section class="section hero" id="hero" aria-labelledby="hero-claim">
+    <section class="section lead-mission" id="concept" aria-labelledby="mission-title">
       <div class="container">
-        <p class="hero__kicker">Le saviez-vous&nbsp;?</p>
-        <p class="hero__number" aria-hidden="true">80&nbsp;%</p>
-        <p class="hero__lead">des batteries électriques qui sont remplacées</p>
-        <h1 class="hero__claim" id="hero-claim">sont en réalité réparables</h1>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         BLOC 2 — Mission
-         ============================================================ -->
-    <section class="section mission" id="concept" aria-label="Notre mission">
-      <div class="container">
-        <p class="mission__sentence">
+        <h1 class="lead-mission__sentence" id="mission-title">
           Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous.
-        </p>
+        </h1>
       </div>
     </section>
 
     <!-- ============================================================
-         BLOC 3 — Promesse (verbes)
+         MODIFICATION 1B — BLOC FACTOID 80 % (placé en 2e)
+         Style "Test 2" : 2 colonnes desktop (80 % gauche, texte droite),
+         empilé sur mobile. Kicker discret "LE SAVIEZ-VOUS ?" au-dessus.
+         ============================================================ -->
+    <section class="section factoid" id="chiffre-cle" aria-label="Le chiffre clé">
+      <div class="container">
+        <p class="factoid__kicker">Le saviez-vous&nbsp;?</p>
+        <div class="factoid__row">
+          <p class="factoid__number">80&nbsp;%</p>
+          <div class="factoid__text">
+            <p class="factoid__line factoid__line--muted">Des batteries électriques qui sont remplacées</p>
+            <p class="factoid__line factoid__line--muted">Sont en réalité</p>
+            <p class="factoid__line factoid__line--accent">Réparables.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         MODIFICATION 2 — BLOC PROMESSE (verbes)
+         Filet décoratif au-dessus et en dessous, fond légèrement
+         teinté, taille augmentée, padding vertical important.
          ============================================================ -->
     <section class="section promise" aria-label="Notre promesse">
       <div class="container">
+        <hr class="promise__divider" aria-hidden="true">
         <p class="promise__sentence">Diagnostiquer Réparer Reconditionner Prolonger</p>
+        <hr class="promise__divider promise__divider--bottom" aria-hidden="true">
       </div>
     </section>
 
@@ -1048,55 +1155,72 @@
     </section>
 
     <!-- ============================================================
-         BLOC 5 — Partenaires (3 colonnes cliquables)
+         MODIFICATION 3 — BLOC 5 PARTENAIRES (scindé en 5A + 5B)
+         L'id #partenaires reste sur le wrapper englobant pour
+         préserver l'ancre du menu.
          ============================================================ -->
-    <section class="section partners" id="partenaires" aria-labelledby="partners-title">
+    <section class="section partners" id="partenaires" aria-label="Reconnaissance et partenaires">
       <div class="container">
 
-        <h2 class="partners__title" id="partners-title">
-          Une expertise reconnue au service de l'économie circulaire
-        </h2>
-
-        <div class="partners__grid">
-
-          <!-- Colonne 1 — Lauréat du Réemploi aux Assises Nationales du Réemploi
-               (lien vers pitch YouTube) -->
-          <a class="partner-card"
+        <!-- ===== 5A — Reconnaissance officielle (Lauréat seul, centré) ===== -->
+        <!-- Variantes de titre possibles, à swap selon préférence :
+             - "Une reconnaissance officielle" (par défaut, ci-dessous)
+             - "Notre reconnaissance"
+             - "Reconnu par l'écosystème"
+        -->
+        <div class="recognition" aria-labelledby="recognition-title">
+          <h2 class="partners__title" id="recognition-title">Une reconnaissance officielle</h2>
+          <a class="recognition__card"
              href="https://www.youtube.com/watch?v=ZKKCYCPfzB8"
              target="_blank"
              rel="noopener noreferrer"
              aria-label="Lauréat du Réemploi aux Assises Nationales du Réemploi — voir le pitch (YouTube)">
-            <div class="partner-card__visual">
+            <div class="recognition__visual">
               <img src="assets/picto-laureat.png" alt="">
             </div>
-            <span class="partner-card__title">Lauréat du Réemploi aux Assises Nationales du Réemploi</span>
+            <span class="recognition__title">Lauréat du Réemploi aux Assises Nationales du Réemploi</span>
           </a>
-
-          <!-- Colonne 2 — RCube -->
-          <a class="partner-card"
-             href="https://rcube.org/"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="RCube — Fédération du Réemploi & Réparation (nouvel onglet)">
-            <div class="partner-card__visual">
-              <img src="assets/logo-rcube.jpg" alt="">
-            </div>
-            <span class="partner-card__title">RCube — Fédération du Réemploi &amp; Réparation</span>
-          </a>
-
-          <!-- Colonne 3 — GSM Master -->
-          <a class="partner-card"
-             href="https://gsmmaster.fr/"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="GSM Master — L'école du Réemploi (nouvel onglet)">
-            <div class="partner-card__visual">
-              <img src="assets/logo-gsm-master.png" alt="">
-            </div>
-            <span class="partner-card__title">GSM Master — L'école du Réemploi</span>
-          </a>
-
         </div>
+
+        <!-- ===== Séparateur visuel entre 5A et 5B ===== -->
+        <div class="partners-separator" aria-hidden="true"><hr></div>
+
+        <!-- ===== 5B — Expertise partenaires (2 colonnes) ===== -->
+        <div aria-labelledby="partners-title">
+          <span class="partners__eyebrow">Nos partenaires</span>
+          <h2 class="partners__title" id="partners-title">
+            Une expertise reconnue au service de l'économie circulaire
+          </h2>
+
+          <div class="partners__grid">
+
+            <!-- Colonne 1 — RCube -->
+            <a class="partner-card"
+               href="https://rcube.org/"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="RCube — Fédération du Réemploi & Réparation (nouvel onglet)">
+              <div class="partner-card__visual">
+                <img src="assets/logo-rcube.jpg" alt="">
+              </div>
+              <span class="partner-card__title">RCube — Fédération du Réemploi &amp; Réparation</span>
+            </a>
+
+            <!-- Colonne 2 — GSM Master -->
+            <a class="partner-card"
+               href="https://gsmmaster.fr/"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="GSM Master — L'école du Réemploi (nouvel onglet)">
+              <div class="partner-card__visual">
+                <img src="assets/logo-gsm-master.png" alt="">
+              </div>
+              <span class="partner-card__title">GSM Master — L'école du Réemploi</span>
+            </a>
+
+          </div>
+        </div>
+
       </div>
     </section>
 
