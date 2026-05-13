@@ -10,7 +10,11 @@ re-watt-landing-v2/
 ├── mentions-legales.html            ← page mentions légales (placeholder à rédiger)
 ├── README.md
 ├── DESIGN-HANDOFF.md                ← doc pour l'intégrateur WordPress
-├── MIGRATION-WORDPRESS.md           ← guide pratique de migration
+├── MIGRATION-WORDPRESS.md           ← guide pratique de migration (vue d'ensemble)
+├── COMMENT-COLLER-DANS-WORDPRESS.md ← pas-à-pas pour copier-coller le site dans WP
+├── wordpress-paste/
+│   ├── page-accueil.html            ← À coller dans un bloc HTML personnalisé sur la page d'accueil WP
+│   └── page-mentions-legales.html   ← À coller dans un bloc HTML personnalisé sur la page Mentions légales WP
 └── assets/
     ├── logo-rewatt.png       ← header
     ├── picto-laureat.png     ← bloc Reconnaissance (sous-section 5A)
