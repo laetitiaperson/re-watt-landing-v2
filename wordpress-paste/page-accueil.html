@@ -2,22 +2,8 @@
   ============================================================
   Re-Watt — Bloc HTML à coller dans WordPress
   ============================================================
-  Procédure complète : voir COMMENT-COLLER-DANS-WORDPRESS.md
-
-  Étapes résumées :
-    1. WordPress > Pages > Ajouter > titre "Accueil"
-    2. Modèle de page : 'Conteneur vide' / 'Page vierge'
-    3. Ajouter un bloc 'HTML personnalisé'
-    4. Coller TOUT ce fichier (de cette ligne jusqu'à la fin)
-    5. Publier la page
-    6. Réglages > Lecture > Page d'accueil statique = "Accueil"
-
-  Images : pointent temporairement vers GitHub Pages. Quand tu
-  auras uploadé les visuels via Médias > Bibliothèque, remplacer
-  toutes les occurrences de :
-    https://laetitiaperson.github.io/re-watt-landing-v2/assets/
-  par l'URL WP fournie par la bibliothèque (typiquement
-  https://re-watt.fr/wp-content/uploads/AAAA/MM/).
+  À coller dans le bloc HTML personnalisé de la page Accueil
+  (remplace l'intégralité du contenu actuel du bloc).
   ============================================================
 -->
 
@@ -1019,20 +1005,7 @@
   <main id="main">
 
     <!-- ============================================================
-         MODIFICATION 1A — BLOC MISSION (placé EN PREMIER)
-         Style "Test 1" : titre bleu MAJUSCULES, aligné à gauche,
-         interligne serré, sur fond clair.
-         ============================================================ -->
-    <section class="section lead-mission" id="concept" aria-labelledby="mission-title">
-      <div class="container">
-        <h1 class="lead-mission__sentence" id="mission-title">
-          Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous.
-        </h1>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         MODIFICATION 1B — BLOC FACTOID 80 % (placé en 2e)
+         BLOC FACTOID 80 % (placé EN PREMIER désormais)
          Style "Test 2" : 2 colonnes desktop (80 % gauche, texte droite),
          empilé sur mobile. Kicker discret "LE SAVIEZ-VOUS ?" au-dessus.
          ============================================================ -->
@@ -1047,6 +1020,19 @@
             <p class="factoid__line factoid__line--accent">Réparables.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         BLOC MISSION (placé en 2e désormais)
+         Style "Test 1" : titre bleu MAJUSCULES, aligné à gauche,
+         interligne serré, sur fond clair.
+         ============================================================ -->
+    <section class="section lead-mission" id="concept" aria-labelledby="mission-title">
+      <div class="container">
+        <h1 class="lead-mission__sentence" id="mission-title">
+          Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous.
+        </h1>
       </div>
     </section>
 
