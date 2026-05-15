@@ -1207,7 +1207,7 @@
          L'id #partenaires reste sur le wrapper englobant pour
          préserver l'ancre du menu.
          ============================================================ -->
-    <section class="section partners" id="partenaires" aria-label="Reconnaissance et partenaires">
+    <section class="section partners" aria-label="Reconnaissance et partenaires">
       <div class="container">
 
         <!-- ===== 5A — Reconnaissance officielle (Lauréat seul, centré) ===== -->
@@ -1254,8 +1254,12 @@
         <!-- ===== Séparateur visuel entre 5A et 5B ===== -->
         <div class="partners-separator" aria-hidden="true"><hr></div>
 
-        <!-- ===== 5B — Expertise partenaires (2 colonnes) ===== -->
-        <div aria-labelledby="partners-title">
+        <!-- ===== 5B — Expertise partenaires (2 colonnes) =====
+             L'ancre #partenaires est sur ce bloc spécifiquement
+             (et non sur la section parente) pour que le clic sur
+             "Nos partenaires" dans le menu scroll directement ici,
+             sans s'arrêter sur "Une reconnaissance officielle". -->
+        <div id="partenaires" class="partners-expertise" aria-labelledby="partners-title">
           <span class="partners__eyebrow">Nos partenaires</span>
           <h2 class="partners__title" id="partners-title">
             Une expertise reconnue au service de l'économie circulaire
