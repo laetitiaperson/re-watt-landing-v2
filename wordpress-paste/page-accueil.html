@@ -1,6 +1,5 @@
 <!--
   Re-Watt — Bloc HTML à coller dans WordPress
-  À coller dans le bloc HTML personnalisé de la page Accueil.
 -->
 
 <style>
@@ -580,7 +579,7 @@
       grid-template-columns: minmax(0, 1fr);          /* mobile : 1 col */
       gap: 32px;
       align-items: stretch;
-      max-width: 800px;                                /* resserre la grille à 2 col */
+      max-width: 1000px;                               /* élargi de 800 → 1000 px pour les logos larges */
       margin: 0 auto;
     }
     @media (min-width: 768px) {
@@ -607,7 +606,7 @@
       transform: translateY(-3px);
     }
     .partner-card__visual {
-      height: 120px;
+      height: 140px;
       width: 100%;
       display: flex;
       align-items: center;
@@ -615,7 +614,7 @@
       transition: opacity var(--transition);
     }
     .partner-card__visual img {
-      max-height: 120px;
+      max-height: 140px;
       max-width: 100%;
       width: auto;
       object-fit: contain;
