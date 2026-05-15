@@ -778,6 +778,9 @@
     }
     .back-to-top:hover { background: var(--vert-rewatt-dark); }
     .back-to-top svg { width: 20px; height: 20px; }
+    /* Force la flèche en blanc, sans dépendre de la propriété color */
+    .back-to-top svg,
+    .back-to-top svg * { stroke: #ffffff; color: #ffffff; }
 
     /* ============================================================
        BANDEAU + MODAL DE CONSENTEMENT AUX COOKIES
@@ -1342,7 +1345,9 @@
           id="back-to-top"
           type="button"
           aria-label="Revenir en haut">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+    <!-- stroke hardcodé en blanc (au lieu de currentColor) pour
+         éviter qu'un thème WP n'override la couleur du bouton -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
       <polyline points="6 15 12 9 18 15"/>
     </svg>
   </button>
